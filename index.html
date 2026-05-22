@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="2026 Java后端面试速查卡片 - 一页纸覆盖Java/Spring/MySQL/Redis/JVM/网络/Linux最核心考点。可打印PDF，面试前5分钟过一遍。">
+<title>Java面试速查卡片 | 2026一页通关</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;padding:1.5rem}
+.container{max-width:900px;margin:0 auto}
+h1{text-align:center;color:#38bdf8;font-size:1.6rem;margin-bottom:.3rem}
+.subtitle{text-align:center;color:#94a3b8;font-size:.85rem;margin-bottom:1.5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem}
+.card{background:#1e293b;border-radius:10px;padding:1rem;border-top:3px solid #38bdf8}
+.card h3{font-size:.95rem;color:#38bdf8;margin-bottom:.5rem}
+.card ul{list-style:none;padding:0}
+.card li{font-size:.82rem;color:#cbd5e1;padding:.15rem 0;border-bottom:1px solid #1e293b}
+.card li::before{content:"▸ ";color:#fbbf24}
+.card code{background:#334155;padding:.1rem .35rem;border-radius:4px;font-size:.78rem;color:#f8fafc}
+.highlight{background:#1e3a5f;padding:.5rem 1rem;border-radius:8px;margin:1rem 0;font-size:.85rem;color:#93c5fd;text-align:center}
+.footer{text-align:center;margin-top:1.5rem;padding:1.2rem;background:#1e293b;border-radius:12px}
+.footer img{width:160px;border-radius:8px}
+.footer p{color:#94a3b8;font-size:.8rem;margin-top:.4rem}
+.btn{display:inline-block;background:#38bdf8;color:#0f172a;padding:.5rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:.3rem}
+.btn:hover{background:#7dd3fc}
+.nav{text-align:center;margin-top:1rem}
+.nav a{color:#38bdf8;margin:0 .5rem;text-decoration:none;font-size:.85rem}
+.print-btn{position:fixed;bottom:20px;right:20px;background:#fbbf24;color:#0f172a;border:none;padding:.8rem 1.5rem;border-radius:12px;cursor:pointer;font-weight:700;font-size:.95rem;box-shadow:0 4px 20px rgba(251,191,36,.3);z-index:100}
+@media print{body{background:#fff;color:#000}.card{background:#fff;border:1px solid #ddd;break-inside:avoid}.footer{display:none}.print-btn{display:none}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>☕ Java面试速查卡片</h1>
+<p class="subtitle">2026版 · 一页纸覆盖7大核心领域 · 面试前5分钟过一遍 · 可打印</p>
+
+<div class="grid">
+<div class="card">
+<h3>🔤 Java基础</h3>
+<ul>
+<li><code>==</code> 比地址，<code>equals()</code> 比内容；重写equals必须重写hashCode</li>
+<li>String不可变（final类+final byte[]），线程安全</li>
+<li>ArrayList扩容1.5倍，HashMap默认16→负载0.75→树化阈值8</li>
+<li>异常：checked需try-catch，unchecked(RuntimeException)不用</li>
+<li>泛型擦除：编译后&lt;T&gt;变Object，运行时不保留类型</li>
+<li>反射：<code>Class.forName()</code>获取类→<code>getDeclaredMethod()</code>调用</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>⚡ JVM</h3>
+<ul>
+<li>内存：堆(对象) + 栈(局部变量/帧) + 方法区(类信息/常量池) + 程序计数器</li>
+<li>GC算法：标记-清除(碎片) / 复制(年轻代) / 标记-整理(老年代)</li>
+<li>CMS：并发标记清除，低停顿但碎片化；G1：Region分区，可预测停顿</li>
+<li>类加载：双亲委派(Bootstrap→Extension→Application)，防止重复加载+核心类篡改</li>
+<li>OOM排查：<code>jmap -dump</code>导出 → MAT/JProfiler分析</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🧵 并发编程</h3>
+<ul>
+<li>volatile：保证可见性+禁止重排序，不保证原子性</li>
+<li>synchronized锁升级：偏向锁→轻量锁(CAS)→重量锁(OS mutex)</li>
+<li>AQS：CLH队列+state变量，ReentrantLock/Semaphore/CountDownLatch都基于它</li>
+<li>线程池：corePool→队列→maxPool→拒绝策略（CallerRuns/Abort/Discard）</li>
+<li>ConcurrentHashMap JDK8：CAS+synchronized锁链表头节点</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🌱 Spring</h3>
+<ul>
+<li>IoC：容器管理Bean生命周期，@Autowired注入（byType→byName）</li>
+<li>AOP：动态代理（JDK接口代理 / CGLIB子类代理），@Transactional就是AOP实现的</li>
+<li>Bean生命周期：实例化→注入→Aware→BeanPostProcessor→init→使用→destroy</li>
+<li>@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan</li>
+<li>循环依赖：三级缓存解决（singletonFactories→earlySingletonObjects→singletonObjects）</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🗄️ MySQL</h3>
+<ul>
+<li>InnoDB索引：B+树，聚簇索引(主键)叶子存数据，非聚簇索引叶子存主键</li>
+<li>最左前缀：联合索引(a,b,c)→where a=1能用，where b=2不能用</li>
+<li>EXPLAIN关键列：type(eq_ref>ref>range>ALL)、key、rows、Extra</li>
+<li>事务隔离：RU脏读→RC不可重复读→RR幻读(InnoDB用间隙锁解决)→Serializable</li>
+<li>MVCC：undo log版本链+ReadView快照，RR级别第一次查询生成ReadView</li>
+<li>慢SQL优化：开慢日志→EXPLAIN→加索引/改SQL/分库分表</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🔴 Redis</h3>
+<ul>
+<li>5种类型：String/Hash/List/Set/ZSet</li>
+<li>穿透：布隆过滤器+空缓存；击穿：互斥锁+逻辑过期；雪崩：TTL随机化+多级缓存</li>
+<li>持久化：RDB(快照)恢复快丢数据 / AOF(追加命令)恢复慢更安全 / 混合模式</li>
+<li>分布式锁：<code>SET lock:xxx uuid NX EX 30</code> + Lua脚本原子释放</li>
+<li>集群：主从(读写分离)→哨兵(自动故障转移)→Cluster(16384槽分片)</li>
+<li>淘汰策略：LRU/LFU/TTL/随机；缓存一致性：先更DB后删缓存+延迟双删</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🌐 网络+Linux</h3>
+<ul>
+<li>TCP三次握手(SYN→SYN+ACK→ACK)；四次挥手(FIN→ACK→FIN→ACK)</li>
+<li>HTTPS：非对称加密交换密钥→对称加密传输数据；证书防中间人</li>
+<li>HTTP状态码：200成功/301永久重定向/400参数错/401未认证/403禁止/404未找到/500服务器错/502网关错/503不可用</li>
+<li>CPU飙高排查：<code>top -Hp PID</code>找线程→<code>jstack</code>查堆栈</li>
+<li>内存泄漏：<code>jmap -histo</code>看对象→<code>jmap -dump</code>导出→MAT分析</li>
+<li>磁盘满：<code>df -h</code>查空间→<code>du -sh /*</code>找大目录→清理日志</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🤖 微服务+AI(2026必考)</h3>
+<ul>
+<li>Nacos：服务注册发现+配置中心；Sentinel：限流(QPS/线程数)+熔断降级</li>
+<li>RocketMQ：削峰填谷，事务消息保证最终一致性</li>
+<li>分布式事务：Seata AT(自动回滚)/TCC(手动confirm+cancel)/消息表+定时对账</li>
+<li>CAP：最多同时满足2个；AP(Eureka/Nacos) vs CP(Zookeeper)</li>
+<li>Spring AI：<code>ChatClient</code>调大模型 + <code>EmbeddingModel</code>做向量化 + <code>VectorStore</code>做RAG</li>
+<li>RAG流程：文档分块→Embedding→向量库→相似检索→拼接Prompt→LLM生成</li>
+</ul>
+</div>
+</div>
+
+<div class="highlight">
+💡 <b>使用技巧：</b>面试前5分钟速扫全文 → 哪块不熟点下面链接看详细题库 → 可打印贴在桌上当小抄。全部免费。
+</div>
+
+<div class="nav">
+<a href="https://Abyte-zym.github.io/interview-quiz/" class="btn">☕ 面试题库</a>
+<a href="https://Abyte-zym.github.io/interview-simulator/" class="btn">🎯 模拟面试</a>
+<a href="https://Abyte-zym.github.io/java-resume-builder/" class="btn">📝 简历生成</a>
+<a href="https://Abyte-zym.github.io/java-career-blog/" class="btn">📚 技术博客</a>
+</div>
+
+<div class="footer">
+<img src="qrcode-wx.png" alt="赞赏码">
+<p>📌 打印版请按 <code>Ctrl+P</code> | 如果帮到了你，请我喝杯咖啡 ☕</p>
+</div>
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ 打印速查卡片</button>
+</body>
+</html>
